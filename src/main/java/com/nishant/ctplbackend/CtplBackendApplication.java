@@ -6,6 +6,7 @@ import org.springframework.boot.persistence.autoconfigure.EntityScan;
 
 
 @EntityScan("com.nishant.ctplbackend.model")
+
 @SpringBootApplication
 public class CtplBackendApplication {
 
