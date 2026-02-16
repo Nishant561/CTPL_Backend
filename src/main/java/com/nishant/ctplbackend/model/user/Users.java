@@ -1,14 +1,20 @@
 package com.nishant.ctplbackend.model.user;
 
+import com.nishant.ctplbackend.base.BaseEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+
 
 @Entity
-@Data
-public class Users {
+@Getter
+@Setter
+@EqualsAndHashCode(callSuper = false)
+public class Users extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,5 +28,6 @@ public class Users {
 
     private String userRole;
 
+    private String userPhoneNumber;
 
 }

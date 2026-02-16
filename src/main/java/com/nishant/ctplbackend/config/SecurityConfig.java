@@ -5,6 +5,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
@@ -14,8 +16,9 @@ public class SecurityConfig {
     @Bean
     SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http){
 
-       return http.authorizeHttpRequests((request)-> request
-                       .requestMatchers("/api/product/**","/api/error").permitAll()
+       return http.csrf(csrfConfig -> csrfConfig.ignoringRequestMatchers("/api/user/register"))
+               .authorizeHttpRequests((request)-> request
+                       .requestMatchers("/api/product/**","/api/error","/api/user/**").permitAll()
                        .requestMatchers("/api/category").authenticated())
                 .formLogin(Customizer.withDefaults())
                 .httpBasic(Customizer.withDefaults())
@@ -31,10 +34,7 @@ public class SecurityConfig {
         return new InMemoryUserDetailsManager(user);
     }*/
 
-    /*@Bean
-    public UserDetailsService userDetailsService(DataSource dataSource){
-        return new JdbcUserDetailsManager(dataSource);
-    }
+
 
 
 
