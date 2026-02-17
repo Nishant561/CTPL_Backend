@@ -32,9 +32,9 @@ public class UserService {
 
             Optional<Users> alreadyExist = userRepo.findByUserEmail(userDto.getUserDtoEmail());
 
-            if(alreadyExist.isPresent()){
-               throw new UserAlreadyExist("User Already Exist!");
-            }
+            alreadyExist.ifPresent(user -> {
+                throw new UserAlreadyExist("User already Exist!");
+            });
 
             Users user = userMapper.toUserEntity(userDto);
             user.setUserPassword(passwordEncoder.encode(user.getUserPassword()));
