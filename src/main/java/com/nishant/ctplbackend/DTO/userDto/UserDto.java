@@ -1,7 +1,7 @@
 package com.nishant.ctplbackend.DTO.userDto;
 
 import com.nishant.ctplbackend.annotations.FieldMatching;
-import jakarta.validation.constraints.Email;
+import com.nishant.ctplbackend.annotations.ValidEmail;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import lombok.Data;
@@ -18,7 +18,7 @@ public class UserDto {
     private int userDtoId;
 
     @NotBlank(message = "Please provide email!")
-    @Email
+    @ValidEmail
     private String userDtoEmail;
 
     @NotBlank(message = "Please provide password!")

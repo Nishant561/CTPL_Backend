@@ -25,7 +25,7 @@ public class CtplUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
        Users foundUser =userRepository.findByUserEmail(email).orElseThrow(()-> new UsernameNotFoundException("User is not registered" + email));
-        List<GrantedAuthority> authorities = List.of(new SimpleGrantedAuthority(foundUser.getUserRole()));
+        List<GrantedAuthority>  authorities = List.of(new SimpleGrantedAuthority(foundUser.getUserRole()));
 
        return new User(foundUser.getUserEmail(),foundUser.getUserPassword(),authorities);
 

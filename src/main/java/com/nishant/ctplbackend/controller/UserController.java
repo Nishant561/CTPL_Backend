@@ -3,7 +3,6 @@ package com.nishant.ctplbackend.controller;
 
 import com.nishant.ctplbackend.DTO.userDto.UserDto;
 import com.nishant.ctplbackend.model.Response;
-import com.nishant.ctplbackend.model.user.Users;
 import com.nishant.ctplbackend.service.userService.UserService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -24,8 +23,7 @@ public class UserController {
     @PostMapping("/register")
     public ResponseEntity<Response> registerNewUser(@Valid @RequestBody UserDto userDto){
 
-        Users userOne = userService.createNewUser(userDto);
-
+       boolean isCreated = userService.createNewUser(userDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(new Response("200","User Created successfully!"));
     }
 
