@@ -16,9 +16,11 @@ public class SecurityConfig {
     @Bean
     SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http){
 
-       return http.csrf(csrfConfig -> csrfConfig.ignoringRequestMatchers("/api/user/register"))
+       return http.csrf(csrfConfig -> csrfConfig
+                       .ignoringRequestMatchers("/api/user/delete-account").ignoringRequestMatchers("/api/roles/add-roles")
+                       .ignoringRequestMatchers("/api/user/register"))
                .authorizeHttpRequests((request)-> request
-                       .requestMatchers("/api/product/**","/api/error","/api/user/**").permitAll()
+                       .requestMatchers("/api/product/**","/api/error","/api/user/**","/api/roles/**").permitAll()
                        .requestMatchers("/api/category").authenticated())
                 .formLogin(Customizer.withDefaults())
                 .httpBasic(Customizer.withDefaults())

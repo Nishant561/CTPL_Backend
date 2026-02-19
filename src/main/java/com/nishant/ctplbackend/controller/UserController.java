@@ -27,5 +27,10 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).body(new Response("200","User Created successfully!"));
     }
 
+    @DeleteMapping("/delete-account")
+    public ResponseEntity<Response> deleteAccount(@RequestBody UserDto userDto){
+        userService.deleteUser(userDto.getUserDtoEmail());
+        return ResponseEntity.status(HttpStatus.OK).body(new Response("200","Account deleted!"));
+    }
 
 }

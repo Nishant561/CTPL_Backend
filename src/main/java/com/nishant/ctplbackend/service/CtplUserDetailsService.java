@@ -13,6 +13,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -25,7 +26,7 @@ public class CtplUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
        Users foundUser =userRepository.findByUserEmail(email).orElseThrow(()-> new UsernameNotFoundException("User is not registered" + email));
-        List<GrantedAuthority>  authorities = List.of(new SimpleGrantedAuthority(foundUser.getUserRole()));
+        List<GrantedAuthority>  authorities = foundUser.getUserRole().stream().map(role -> new SimpleGrantedAuthority(role.getRoleName().toString())).collect(Collectors.toList());
 
        return new User(foundUser.getUserEmail(),foundUser.getUserPassword(),authorities);
 
